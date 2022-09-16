@@ -4,15 +4,14 @@ import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
 const input = document.querySelector('#datetime-picker');
-const buttonStart = document.querySelector(button[data - start]);
-const dayTimer = document.querySelector([data - days]);
-const hoursTimer = document.querySelector([data - hours]);
-const minutesTimer = document.querySelector([data - minutes]);
-const secondsTimer = document.querySelector([data - second]);
-buttonStart.disabled = true;
+const buttonStart = document.querySelector('[data-start]');
+const dayTimer = document.querySelector('[data-days]');
+const hoursTimer = document.querySelector('[data-hours]');
+const minutesTimer = document.querySelector('[data-minutes]');
+const secondsTimer = document.querySelector('[data-second]');
+// buttonStart.disabled = true;
 
-
-buttonStart.addEventListener
+buttonStart.addEventListener('click', convertMs);
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -22,7 +21,7 @@ const options = {
     console.log(selectedDates[0]);
   },
 };
-flatpickr('#datetime-picker', options);
+flatpickr(input, options);
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
@@ -41,6 +40,17 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-function addLeadingZero(value); {
-padStart(2, '0')
-}
+intervalId = setInterval(() => {
+  const date = new Date(e.target.value);
+  clearInterval(intervalId);
+  if (date.getTime() > Date.now()) {
+    alert('Виберіть коректну дату народження!');
+    return;
+  }
+  const { days, hours, minutes, seconds } = convertMs(ms);
+  dayTimer.textContent = days[value];
+  console.log(dayTimer);
+}, 1000);
+// function addLeadingZero(value); {
+// padStart(2, '0')
+// }
