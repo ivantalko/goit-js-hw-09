@@ -8,7 +8,7 @@ btnStop.disabled = true;
 
 btnStart.addEventListener('click', onStart);
 
-let timerId;
+let timerId = null;
 function onStart() {
   btnStart.disabled = true;
   btnStop.disabled = false;
