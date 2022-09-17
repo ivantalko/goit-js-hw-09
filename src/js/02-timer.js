@@ -5,19 +5,51 @@ import Notiflix from 'notiflix';
 
 const input = document.querySelector('#datetime-picker');
 const buttonStart = document.querySelector('[data-start]');
-const dayTimer = document.querySelector('[data-days]');
+const daysTimer = document.querySelector('[data-days]');
 const hoursTimer = document.querySelector('[data-hours]');
 const minutesTimer = document.querySelector('[data-minutes]');
-const secondsTimer = document.querySelector('[data-second]');
-// buttonStart.disabled = true;
+const secondsTimer = document.querySelector('[data-seconds]');
+buttonStart.disabled = true;
 
-buttonStart.addEventListener('click', convertMs);
+let selectedDay = new Date();
+
+window.addEventListener('load', pageReload);
+
+function pageReload() {}
+
+buttonStart.addEventListener('click', onBtnClick);
+
+function onBtnClick(event) {
+  intervalId = setInterval(() => {
+    const msResult = selectedDay.getTime() - Date.now();
+    const timer = convertMs(msResult);
+    const { days, hours, minutes, seconds } = timer;
+    if (msResult < 1000 || pageReload()) {
+      clearInterval(intervalId);
+    }
+    //Выведение таймера
+    daysTimer.textContent = `${days}`;
+    hoursTimer.textContent = `${hours}`;
+    minutesTimer.textContent = `${minutes}`;
+    secondsTimer.textContent = `${seconds}`;
+  }, 1000);
+}
+input.addEventListener('change', onInputClick);
+function onInputClick(event) {
+  const selectedTime = new Date(event.target.value);
+  if (selectedTime.getTime() < Date.now()) {
+    return Notiflix.Notify.failure('Please choose a date in the future');
+  }
+  buttonStart.removeAttribute('disabled');
+}
+
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
+    selectedDay = selectedDates[0];
     console.log(selectedDates[0]);
   },
 };
@@ -40,17 +72,17 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-intervalId = setInterval(() => {
-  const date = new Date(e.target.value);
-  clearInterval(intervalId);
-  if (date.getTime() > Date.now()) {
-    alert('Виберіть коректну дату народження!');
-    return;
-  }
-  const { days, hours, minutes, seconds } = convertMs(ms);
-  dayTimer.textContent = days;
-  console.log(dayTimer);
-}, 1000);
+// intervalId = setInterval(() => {
+//   const date = new Date(e.target.value);
+//   clearInterval(intervalId);
+//   if (date.getTime() > Date.now()) {
+//     alert('Виберіть коректну дату народження!');
+//     return;
+//   }
+//   const { days, hours, minutes, seconds } = convertMs(ms);
+//   dayTimer.textContent = days;
+//   console.log(dayTimer);
+// }, 1000);
 // function addLeadingZero(value); {
 // padStart(2, '0')
 // }
