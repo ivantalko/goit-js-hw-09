@@ -48,7 +48,7 @@ intervalId = setInterval(() => {
     return;
   }
   const { days, hours, minutes, seconds } = convertMs(ms);
-  dayTimer.textContent = days[value];
+  dayTimer.textContent = days;
   console.log(dayTimer);
 }, 1000);
 // function addLeadingZero(value); {
