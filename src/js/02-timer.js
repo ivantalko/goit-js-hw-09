@@ -14,9 +14,10 @@ buttonStart.disabled = true;
 let selectedDay = new Date();
 
 window.addEventListener('load', pageReload);
-
 function pageReload() {}
-
+function addLeadingZero(value) {
+  return value.toString().padStart(2, '0');
+}
 buttonStart.addEventListener('click', onBtnClick);
 
 function onBtnClick(event) {
@@ -28,10 +29,10 @@ function onBtnClick(event) {
       clearInterval(intervalId);
     }
     //Выведение таймера
-    daysTimer.textContent = `${days}`;
-    hoursTimer.textContent = `${hours}`;
-    minutesTimer.textContent = `${minutes}`;
-    secondsTimer.textContent = `${seconds}`;
+    daysTimer.textContent = addLeadingZero(`${days}`);
+    hoursTimer.textContent = addLeadingZero(`${hours}`);
+    minutesTimer.textContent = addLeadingZero(`${minutes}`);
+    secondsTimer.textContent = addLeadingZero(`${seconds}`);
   }, 1000);
 }
 input.addEventListener('change', onInputClick);
@@ -72,17 +73,3 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-// intervalId = setInterval(() => {
-//   const date = new Date(e.target.value);
-//   clearInterval(intervalId);
-//   if (date.getTime() > Date.now()) {
-//     alert('Виберіть коректну дату народження!');
-//     return;
-//   }
-//   const { days, hours, minutes, seconds } = convertMs(ms);
-//   dayTimer.textContent = days;
-//   console.log(dayTimer);
-// }, 1000);
-// function addLeadingZero(value); {
-// padStart(2, '0')
-// }
