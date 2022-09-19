@@ -9,6 +9,7 @@ const daysTimer = document.querySelector('[data-days]');
 const hoursTimer = document.querySelector('[data-hours]');
 const minutesTimer = document.querySelector('[data-minutes]');
 const secondsTimer = document.querySelector('[data-seconds]');
+
 buttonStart.disabled = true;
 
 let selectedDay = new Date();
@@ -19,6 +20,12 @@ function addLeadingZero(value) {
   return value.toString().padStart(2, '0');
 }
 buttonStart.addEventListener('click', onBtnClick);
+function timerBig({ days, hours, minutes, seconds }) {
+  daysTimer.textContent = addLeadingZero(`${days}`);
+  hoursTimer.textContent = addLeadingZero(`${hours}`);
+  minutesTimer.textContent = addLeadingZero(`${minutes}`);
+  secondsTimer.textContent = addLeadingZero(`${seconds}`);
+}
 
 function onBtnClick(event) {
   intervalId = setInterval(() => {
@@ -27,14 +34,13 @@ function onBtnClick(event) {
     const { days, hours, minutes, seconds } = timer;
     if (msResult < 1000 || pageReload()) {
       clearInterval(intervalId);
+      return;
     }
-    //Выведение таймера
-    daysTimer.textContent = addLeadingZero(`${days}`);
-    hoursTimer.textContent = addLeadingZero(`${hours}`);
-    minutesTimer.textContent = addLeadingZero(`${minutes}`);
-    secondsTimer.textContent = addLeadingZero(`${seconds}`);
+
+    timerBig(timer);
   }, 1000);
 }
+
 input.addEventListener('change', onInputClick);
 function onInputClick(event) {
   const selectedTime = new Date(event.target.value);
