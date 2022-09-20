@@ -29,7 +29,7 @@ function timerBig({ days, hours, minutes, seconds }) {
 }
 
 function onBtnClick(event) {
-  intervalId = setInterval(() => {
+  let intervalId = setInterval(() => {
     const msResult = selectedDay.getTime() - Date.now();
     const timer = convertMs(msResult);
     const { days, hours, minutes, seconds } = timer;
