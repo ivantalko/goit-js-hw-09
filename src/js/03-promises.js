@@ -31,12 +31,12 @@ function onSubmit(event) {
   let delayValue = Number(delay.value);
   for (let index = 0; index < amountValue; index += 1) {
     getPromise(index, delayValue)
-      .then(({ position, delay }) => {
+      .then(({ position, delayEL }) => {
         Notiflix.Notify.success(
-          `✅ Fulfilled promise ${position} in ${delay}ms`
+          `✅ Fulfilled promise ${position} in ${delayEL}ms`
         );
       })
-      .catch(({ position, delay }) => {
+      .catch(({ position, delayEL }) => {
         Notiflix.Notify.failure(
           `❌ Rejected promise ${position} in ${delay}ms`
         );
