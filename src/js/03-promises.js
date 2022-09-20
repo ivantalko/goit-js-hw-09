@@ -10,7 +10,7 @@ const formEL = document.querySelector('.form');
 // создаёв функцию promis.
 function getPromise(position, delayEL) {
   // создаём новый промис с условиями (resolve, reject).и с записываемой задержкой инпут).
-  return (promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       const shouldResolve = Math.random() > 0.3;
       if (shouldResolve) {
@@ -19,7 +19,7 @@ function getPromise(position, delayEL) {
         reject({ position, delayEL });
       }
     }, delayEL);
-  }));
+  });
 }
 
 formEL.addEventListener('submit', onSubmit);
